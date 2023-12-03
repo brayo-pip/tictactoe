@@ -38,7 +38,6 @@ class TicTacToeModel extends ChangeNotifier {
       return;
     }
     squareTileColors[key] = Colors.lightBlue;
-    notifyListeners();
   }
 
   void checkWin() {
