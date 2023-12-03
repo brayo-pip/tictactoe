@@ -15,7 +15,7 @@ class TicTacToeModel extends ChangeNotifier {
   Map<Key, Color?> squareTileColors = {};
   var playersTurn = 'X';
   // ignore: non_constant_identifier_names
-  var Owins = 0;
+  var OWins = 0;
   // ignore: non_constant_identifier_names
   var XWins = 0;
 
@@ -86,7 +86,7 @@ class TicTacToeModel extends ChangeNotifier {
       if (playersTurn == 'O') {
         XWins += 1;
       } else {
-        Owins += 1;
+        OWins += 1;
       }
       resetTileColor();
       resetTileState();
@@ -151,7 +151,7 @@ class MyApp extends StatelessWidget {
                         width: 50,
                       ),
                       Text(
-                        'Player O\n${model.Owins} win(s)',
+                        'Player O\n${model.OWins} win(s)',
                         style: const TextStyle(fontSize: 30),
                         textAlign: TextAlign.center,
                       ),
