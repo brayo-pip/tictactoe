@@ -230,10 +230,7 @@ class _SquareTileState extends State<SquareTile> {
         height: 100,
         child: Consumer<TicTacToeModel>(
           builder: (context, model, child) {
-            return Card(
-              shape:
-                  const BeveledRectangleBorder(borderRadius: BorderRadius.zero),
-              elevation: 0,
+            return Container(
               margin: const EdgeInsets.all(1),
               color: model.squareTileColors[widget.key] ?? Colors.purple,
               child: Center(
