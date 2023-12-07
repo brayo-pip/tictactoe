@@ -245,47 +245,26 @@ class MyApp extends StatelessWidget {
                     height: 50,
                   ),
                   const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SquareTile(
-                        key: Key('0'),
-                      ),
-                      SquareTile(
-                        key: Key('1'),
-                      ),
-                      SquareTile(
-                        key: Key('2'),
-                      ),
-                    ],
-                  ),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SquareTile(key: Key('0')),
+                        SquareTile(key: Key('1')),
+                        SquareTile(key: Key('2')),
+                      ]),
                   const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SquareTile(
-                        key: Key('3'),
-                      ),
-                      SquareTile(
-                        key: Key('4'),
-                      ),
-                      SquareTile(
-                        key: Key('5'),
-                      ),
-                    ],
-                  ),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SquareTile(key: Key('3')),
+                        SquareTile(key: Key('4')),
+                        SquareTile(key: Key('5')),
+                      ]),
                   const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SquareTile(
-                        key: Key('6'),
-                      ),
-                      SquareTile(
-                        key: Key('7'),
-                      ),
-                      SquareTile(
-                        key: Key('8'),
-                      ),
-                    ],
-                  ),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SquareTile(key: Key('6')),
+                        SquareTile(key: Key('7')),
+                        SquareTile(key: Key('8')),
+                      ]),
                 ],
               );
             },
