@@ -57,7 +57,7 @@ class TicTacToeModel extends ChangeNotifier {
   int horizontalIdx = 0;
   int verticalIdx = 0;
   int diagonalIdx = 4;
-  var diagonalIdx2 = 4;
+  int diagonalIdx2 = 4;
 
   void checkWin(Key key) {
     turns += 1;
