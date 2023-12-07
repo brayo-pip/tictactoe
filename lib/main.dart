@@ -18,7 +18,21 @@ class TicTacToeModel extends ChangeNotifier {
   var OWins = 0;
   // ignore: non_constant_identifier_names
   var XWins = 0;
-
+  var turns = 0;
+  var horizontalKeys = [
+    [const Key('0'), const Key('1'), const Key('2')],
+    [const Key('3'), const Key('4'), const Key('5')],
+    [const Key('6'), const Key('7'), const Key('8')],
+  ];
+  var verticalKeys = [
+    [const Key('0'), const Key('3'), const Key('6')],
+    [const Key('1'), const Key('4'), const Key('7')],
+    [const Key('2'), const Key('5'), const Key('8')],
+  ];
+  var diagonalKeys = [
+    [const Key('0'), const Key('4'), const Key('8')],
+    [const Key('2'), const Key('4'), const Key('6')],
+  ];
   void resetTileState() {
     for (var i = 0; i < 9; i++) {
       squareTileStates[Key('$i')] = null;
@@ -40,75 +54,146 @@ class TicTacToeModel extends ChangeNotifier {
     squareTileColors[key] = Colors.lightBlue;
   }
 
-  void checkWin() {
-    // ugly but efficient
-    if (squareTileStates[const Key('0')] != null &&
-            squareTileStates[const Key('0')] ==
-                squareTileStates[const Key('1')] &&
-            squareTileStates[const Key('1')] ==
-                squareTileStates[const Key('2')] ||
-        squareTileStates[const Key('3')] != null &&
-            squareTileStates[const Key('3')] ==
-                squareTileStates[const Key('4')] &&
-            squareTileStates[const Key('4')] ==
-                squareTileStates[const Key('5')] ||
-        squareTileStates[const Key('6')] != null &&
-            squareTileStates[const Key('6')] ==
-                squareTileStates[const Key('7')] &&
-            squareTileStates[const Key('7')] ==
-                squareTileStates[const Key('8')] ||
-        squareTileStates[const Key('0')] != null &&
-            squareTileStates[const Key('0')] ==
-                squareTileStates[const Key('3')] &&
-            squareTileStates[const Key('3')] ==
-                squareTileStates[const Key('6')] ||
-        squareTileStates[const Key('1')] != null &&
-            squareTileStates[const Key('1')] ==
-                squareTileStates[const Key('4')] &&
-            squareTileStates[const Key('4')] ==
-                squareTileStates[const Key('7')] ||
-        squareTileStates[const Key('2')] != null &&
-            squareTileStates[const Key('2')] ==
-                squareTileStates[const Key('5')] &&
-            squareTileStates[const Key('5')] ==
-                squareTileStates[const Key('8')] ||
-        squareTileStates[const Key('0')] != null &&
-            squareTileStates[const Key('0')] ==
-                squareTileStates[const Key('4')] &&
-            squareTileStates[const Key('4')] ==
-                squareTileStates[const Key('8')] ||
-        squareTileStates[const Key('2')] != null &&
-            squareTileStates[const Key('2')] ==
-                squareTileStates[const Key('4')] &&
-            squareTileStates[const Key('4')] ==
-                squareTileStates[const Key('6')]) {
-      if (playersTurn == 'O') {
+  int horizontalIdx = 0;
+  int verticalIdx = 0;
+  int diagonalIdx = 4;
+  var diagonalIdx2 = 4;
+
+  void checkWin(Key key) {
+    turns += 1;
+    if (turns <= 4) {
+      playersTurn = playersTurn == 'X' ? 'O' : 'X';
+      return;
+    }
+    switch (key.toString()) {
+      case "[<'0'>]":
+        horizontalIdx = 0;
+        verticalIdx = 0;
+        diagonalIdx = 0;
+        break;
+      case "[<'1'>]":
+        horizontalIdx = 0;
+        verticalIdx = 1;
+        break;
+      case "[<'2'>]":
+        horizontalIdx = 0;
+        verticalIdx = 2;
+        diagonalIdx = 1;
+        break;
+      case "[<'3'>]":
+        horizontalIdx = 1;
+        verticalIdx = 0;
+        break;
+      case "[<'4'>]":
+        horizontalIdx = 1;
+        verticalIdx = 1;
+        diagonalIdx = 0;
+        diagonalIdx2 = 1;
+        break;
+      case "[<'5'>]":
+        horizontalIdx = 1;
+        verticalIdx = 2;
+        break;
+      case "[<'6'>]":
+        horizontalIdx = 2;
+        verticalIdx = 0;
+        diagonalIdx = 1;
+        break;
+      case "[<'7'>]":
+        horizontalIdx = 2;
+        verticalIdx = 1;
+        break;
+      case "[<'8'>]":
+        horizontalIdx = 2;
+        verticalIdx = 2;
+        diagonalIdx = 0;
+        break;
+
+      default:
+        break;
+    }
+    if (horizontalCheck(horizontalIdx)) {
+      resetTileState();
+      resetTileColor();
+      turns = 0;
+      return;
+    } else if (verticalCheck(verticalIdx)) {
+      resetTileState();
+      resetTileColor();
+      turns = 0;
+      return;
+    } else if (diagonalCheck(diagonalIdx)) {
+      resetTileState();
+      resetTileColor();
+      turns = 0;
+      return;
+    } else if (diagonalCheck(diagonalIdx2)) {
+      resetTileState();
+      resetTileColor();
+      turns = 0;
+      return;
+    } else if (turns == 9) {
+      resetTileState();
+      resetTileColor();
+      turns = 0;
+    } else {
+      playersTurn = playersTurn == 'X' ? 'O' : 'X';
+    }
+  }
+
+  bool horizontalCheck(int idx) {
+    if (squareTileStates[horizontalKeys[idx][0]] == playersTurn &&
+        squareTileStates[horizontalKeys[idx][1]] == playersTurn &&
+        squareTileStates[horizontalKeys[idx][2]] == playersTurn) {
+      if (playersTurn == 'X') {
         XWins += 1;
+        return true;
       } else {
         OWins += 1;
+        return true;
       }
-      resetTileColor();
-      resetTileState();
-    } else if (squareTileStates[const Key('0')] != null &&
-        squareTileStates[const Key('1')] != null &&
-        squareTileStates[const Key('2')] != null &&
-        squareTileStates[const Key('3')] != null &&
-        squareTileStates[const Key('4')] != null &&
-        squareTileStates[const Key('5')] != null &&
-        squareTileStates[const Key('6')] != null &&
-        squareTileStates[const Key('7')] != null &&
-        squareTileStates[const Key('8')] != null) {
-      resetTileColor();
-      resetTileState();
     }
+    return false;
+  }
+
+  bool verticalCheck(int idx) {
+    if (squareTileStates[verticalKeys[idx][0]] == playersTurn &&
+        squareTileStates[verticalKeys[idx][1]] == playersTurn &&
+        squareTileStates[verticalKeys[idx][2]] == playersTurn) {
+      if (playersTurn == 'X') {
+        XWins += 1;
+        return true;
+      } else {
+        OWins += 1;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool diagonalCheck(int idx) {
+    if (idx == 4) {
+      return false;
+    }
+    if (squareTileStates[diagonalKeys[idx][0]] == playersTurn &&
+        squareTileStates[diagonalKeys[idx][1]] == playersTurn &&
+        squareTileStates[diagonalKeys[idx][2]] == playersTurn) {
+      if (playersTurn == 'X') {
+        XWins += 1;
+        return true;
+      } else {
+        OWins += 1;
+        return true;
+      }
+    }
+    return false;
   }
 
   void updateSquareTileState(Key key) {
     if (squareTileStates[key] == null) {
       squareTileStates[key] = playersTurn;
-      playersTurn = playersTurn == 'X' ? 'O' : 'X';
       updateSquareTileColors(key);
-      checkWin();
+      checkWin(key);
       notifyListeners();
     }
   }
