@@ -148,10 +148,9 @@ class TicTacToeModel extends ChangeNotifier {
       if (playersTurn == 'X') {
         XWins += 1;
         return true;
-      } else {
-        OWins += 1;
-        return true;
       }
+      OWins += 1;
+      return true;
     }
     return false;
   }
@@ -163,10 +162,10 @@ class TicTacToeModel extends ChangeNotifier {
       if (playersTurn == 'X') {
         XWins += 1;
         return true;
-      } else {
-        OWins += 1;
-        return true;
       }
+      OWins += 1;
+      return true;
+
     }
     return false;
   }
@@ -181,10 +180,9 @@ class TicTacToeModel extends ChangeNotifier {
       if (playersTurn == 'X') {
         XWins += 1;
         return true;
-      } else {
-        OWins += 1;
-        return true;
       }
+      OWins += 1;
+      return true;
     }
     return false;
   }
